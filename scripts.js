@@ -4,16 +4,19 @@ class Node {
     this.nextNode = nextNode;
   }
 }
+
 class LinkedList {
   constructor() {
     this.head = null;
   }
+
   append(value) {
     // adds new node to the end of list
     let lastNode = this.getTail();
     if (lastNode == null) this.head = new Node(value);
     else lastNode.nextNode = new Node(value);
   }
+
   prepend(value) {
     // adds new node to the start of list
     let tmp = null;
@@ -21,22 +24,25 @@ class LinkedList {
     this.head = new Node(value);
     this.head.nextNode = tmp;
   }
+
   size() {
     // return the size of list
     if (this.head === null) return 0;
-    let tmp = this.head;
+    let currentNode = this.head;
     let counter = 1;
-    while (tmp.nextNode !== null) {
+    while (currentNode.nextNode !== null) {
       counter++;
-      tmp = tmp.nextNode;
+      currentNode = currentNode.nextNode;
     }
     return counter;
   }
-  getHead() {
+
+  head() {
     // return the first node of the list
     return this.head;
   }
-  getTail() {
+
+  tail() {
     // return the last node of the list
     let lastNode = this.head;
     if (lastNode === null) return lastNode;
@@ -45,6 +51,7 @@ class LinkedList {
     }
     return lastNode;
   }
+
   at(index) {
     // return the node at given index
     if (this.head === null) return null;
@@ -56,6 +63,7 @@ class LinkedList {
     }
     return currentNode;
   }
+
   pop() {
     // remove the last element from the list
     if (this.head === null) return;
@@ -63,6 +71,7 @@ class LinkedList {
     let beforeLastNode = this.at(listSize - 2);
     beforeLastNode.nextNode = null;
   }
+
   contains(value) {
     // return true if the node contains the passed value otherwise return false
     if (this.head === null) return false;
@@ -75,6 +84,7 @@ class LinkedList {
     }
     return false;
   }
+
   find(value) {
     // return the index of containing node or null
     if (this.head === null) return null;
@@ -89,6 +99,7 @@ class LinkedList {
     }
     return null;
   }
+
   toString() {
     // print on the console the list ( value ) -> ( value ) -> ( value ) -> null
     if (this.head === null) console.log('null');
@@ -101,6 +112,31 @@ class LinkedList {
     print += 'null';
     return print;
   }
+
+  insertAt(value, index) {
+    // inserts a new node with the provided value at the given index.
+    if (this.head === null || index === 0) return this.prepend(value);
+    const nodeOfIndex = this.at(index);
+    const nodeBeforeIndex = this.at(index - 1);
+    const newNode = new Node(value);
+    newNode.nextNode = nodeOfIndex;
+    nodeBeforeIndex.nextNode = newNode;
+  }
+
+  removeAt(index) {
+    // removes the node at the given index
+    if (this.head === null) return;
+    const nodeBeforeIndex = this.at(index - 1);
+    const nodeOfIndex = this.at(index);
+    const nodeAfterIndex = this.at(index + 1);
+    if (index === 0) {
+      this.head = nodeAfterIndex;
+      nodeOfIndex.nextNode = null;
+      return;
+    }
+    nodeBeforeIndex.nextNode = nodeAfterIndex;
+    nodeOfIndex.nextNode = null;
+  }
 }
 
 const linkedList = new LinkedList();
@@ -108,11 +144,16 @@ const linkedList = new LinkedList();
 // console.log(linkedList);
 // linkedList.append(3);
 // linkedList.prepend(0);
-// // linkedList.pop();
-
+// linkedList.pop();
+// linkedList.insertAt(1, 0);
+// linkedList.insertAt(0, 0);
+// linkedList.insertAt(2, 1);
+// linkedList.insertAt(3, 3);
+// linkedList.removeAt(3);
 // console.log(linkedList);
-// console.log(linkedList.getHead());
+// console.log(linkedList.head());
+// console.log(linkedList.tail());
 // console.log(linkedList.size());
-// console.log(linkedList.contains(5));
+// console.log(linkedList.contains(0));
 // console.log(linkedList.find(2));
 // console.log(linkedList.toString());
