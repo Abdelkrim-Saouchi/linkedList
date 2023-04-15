@@ -12,7 +12,7 @@ class LinkedList {
 
   append(value) {
     // adds new node to the end of list
-    let lastNode = this.getTail();
+    let lastNode = this.tail();
     if (lastNode == null) this.head = new Node(value);
     else lastNode.nextNode = new Node(value);
   }
@@ -37,7 +37,7 @@ class LinkedList {
     return counter;
   }
 
-  head() {
+  getHead() {
     // return the first node of the list
     return this.head;
   }
@@ -67,7 +67,7 @@ class LinkedList {
   pop() {
     // remove the last element from the list
     if (this.head === null) return;
-    let listSize = this.size();
+    const listSize = this.size();
     let beforeLastNode = this.at(listSize - 2);
     beforeLastNode.nextNode = null;
   }
@@ -102,15 +102,14 @@ class LinkedList {
 
   toString() {
     // print on the console the list ( value ) -> ( value ) -> ( value ) -> null
-    if (this.head === null) console.log('null');
+    if (this.head === null) return 'null';
     let print = '';
     let currentNode = this.head;
     while (currentNode !== null) {
       print += `( ${currentNode.value} ) -> `;
       currentNode = currentNode.nextNode;
     }
-    print += 'null';
-    return print;
+    return print + 'null';
   }
 
   insertAt(value, index) {
@@ -140,20 +139,22 @@ class LinkedList {
 }
 
 const linkedList = new LinkedList();
-// linkedList.append(2);
 // console.log(linkedList);
+// linkedList.append(2);
 // linkedList.append(3);
 // linkedList.prepend(0);
+// console.log(linkedList.size());
 // linkedList.pop();
+// console.log(linkedList.at(1));
 // linkedList.insertAt(1, 0);
 // linkedList.insertAt(0, 0);
 // linkedList.insertAt(2, 1);
 // linkedList.insertAt(3, 3);
-// linkedList.removeAt(3);
+// linkedList.removeAt(1);
 // console.log(linkedList);
-// console.log(linkedList.head());
+// console.log(linkedList.getHead());
 // console.log(linkedList.tail());
 // console.log(linkedList.size());
-// console.log(linkedList.contains(0));
-// console.log(linkedList.find(2));
+// console.log(linkedList.contains(10));
+// console.log(linkedList.find(20));
 // console.log(linkedList.toString());
